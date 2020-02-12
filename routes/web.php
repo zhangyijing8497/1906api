@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// phpinfo页面
 Route::get('/phpinfo',function(){
     phpinfo();
+});
+
+// 测试
+Route::prefix('/test/')->group(function(){
+    Route::get('redis','TestController@testRedis');
+    Route::get('/test1','TestController@test1');
+    Route::get('/test2','TestController@test2');
 });
