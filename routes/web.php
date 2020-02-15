@@ -25,6 +25,10 @@ Route::prefix('/test/')->group(function(){
     Route::get('redis','TestController@testRedis');
     Route::get('test1','TestController@test1');
     Route::get('test2','TestController@test2');
+    Route::get('wx/token','TestController@getAccessToken');
+    Route::get('curl1','TestController@curl1');
+    Route::get('curl2','TestController@curl2');
+    Route::get('guzzle1','TestController@guzzle');
 });
 
 Route::prefix('/api/')->group(function(){

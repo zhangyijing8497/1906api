@@ -40,4 +40,5 @@ class UserController extends Controller
         $id = UserModel::insertGetId($user_info);
         echo "自增id： " .$id;
     }
+
 }
