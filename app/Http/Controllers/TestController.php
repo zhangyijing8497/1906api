@@ -146,4 +146,46 @@ class TestController extends Controller
         $data = $response->getBody();
         echo $data;
     }
+
+    public function get1()
+    {
+        echo "接受的数据:";echo "<br>";
+        echo '<pre>';print_r($_GET);echo '</pre>';
+    }
+
+    public function post1()
+    {
+        // $data = file_get_contents("php://input");
+        // var_dump($data);
+        echo "<hr>";
+        echo "1906API";
+        echo '<pre>';print_r($_POST);echo '</pre>';
+        echo '<pre>';print_r($_FILES);echo '</pre>';
+    }
+
+    public function post2()
+    {
+        echo '<pre>';print_r($_POST);echo '</pre>';
+    }
+
+    /**
+     * 可以接受json xml
+     */
+    public function post3()
+    {
+        // echo '<pre>';print_r($_POST);echo '</pre>';
+        $json = file_get_contents("php://input");  //接收json 或xml数据
+        $arr = json_decode($json,true);
+        print_r($arr);
+    }
+
+    /**
+     * 接收post 上传文件
+     */
+    public function testUpload()
+    {
+        echo '<pre>';print_r($_POST);echo '</pre>';
+        echo "接受文件:";echo "<br>";
+        echo '<pre>';print_r($_FILES);echo '</pre>';
+    }
 }
