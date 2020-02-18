@@ -188,4 +188,31 @@ class TestController extends Controller
         echo "接受文件:";echo "<br>";
         echo '<pre>';print_r($_FILES);echo '</pre>';
     }
+
+    /**
+     * 获取当前完整的url地址
+     */
+    public function getUrl()
+    {
+        // 协议
+        $scheme = $_SERVER['REQUEST_SCHEME'];
+
+        // 域名
+        $host = $_SERVER['HTTP_HOST'];
+        
+        // 请求uri
+        $uri = $_SERVER['REQUEST_URI'];
+
+        $url = $scheme . "://" . $host  . $uri;
+
+        echo '<pre>';print_r($url);echo '</pre>';
+    }
+
+    public function redisStr1()
+    {
+        $key = "username";
+        $value = "lisi";
+        Redis::set($key,$value);
+    }
+
 }

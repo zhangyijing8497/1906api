@@ -37,9 +37,17 @@ Route::prefix('/test/')->group(function(){
     Route::post('post3','TestController@post3');  //处理post请求接口
     
     Route::post('upload','TestController@testUpload');  //上传文件
+    
+    Route::get('geturl','TestController@getUrl');  //
+    Route::get('redis/str1','TestController@redisStr1');  //
 });
 
 Route::prefix('/api/')->group(function(){
     Route::get('user/info','Api\UserController@info');
     Route::post('user/reg','Api\UserController@reg');  //用户注册
+});
+
+
+Route::prefix('/goods/')->group(function(){
+    Route::get('details','GoodsController@details');
 });
