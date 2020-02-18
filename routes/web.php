@@ -40,6 +40,11 @@ Route::prefix('/test/')->group(function(){
     
     Route::get('geturl','TestController@getUrl');  //
     Route::get('redis/str1','TestController@redisStr1');  //
+
+
+    Route::get('redis/count1','TestController@count1');  //
+    Route::get('api2','TestController@api2');  //
+    Route::get('api3','TestController@api3');  //
 });
 
 Route::prefix('/api/')->group(function(){

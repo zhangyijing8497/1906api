@@ -36,7 +36,6 @@ class GoodsController extends Controller
             echo '<pre>';print_r($arr);echo '</pre>';
         } 
         
-        die;
 
         $data = [
             'goods_id'  => $goods_id,

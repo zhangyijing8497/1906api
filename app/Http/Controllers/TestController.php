@@ -215,4 +215,90 @@ class TestController extends Controller
         Redis::set($key,$value);
     }
 
+    public function count1()
+    {
+        // UA识别用户
+        $ua = $_SERVER['HTTP_USER_AGENT'];
+        $u = md5($ua);
+        $u = substr($u,5,5);
+
+        $max = 15;
+
+        // 判断次数是否达到上限
+        $k = $ua.':count1';
+        $num = Redis::get($k);
+        echo "现有访问次数: ".$num;echo '</br>';
+
+
+        if($num>$max){
+            Redis::expire($k,10);
+
+            echo "该接口访问次数已达上限".$max;echo '</br>';
+            echo "请在10s后访问";
+            die;
+        }
+
+        $count = Redis::incr($k);
+        echo $count;echo '</br>';
+        echo "正常访问";
+    }
+
+    public function api2()
+    {
+        $ua = $_SERVER['HTTP_USER_AGENT'];
+        $u = md5($ua);
+        $u = substr($u,5,5);
+        echo "U: ".$u;echo '</br>';
+
+        $uri = $_SERVER['REQUEST_URI'];
+        echo "uri:" . $uri;echo '</br>';
+
+        $md5_uri = substr(md5($uri),0,8);
+        echo $md5_uri;
+
+        // $key = $u . ":" . $md5_uri . ":count";
+        $key = 'count:uri:'.$u.':'.$md5_uri;
+        echo "Redis Key:".$key;echo '</br>';
+
+        echo '<hr>';
+        $count = Redis::get($key);
+        echo "当前接口计数:".$count;echo '</br>';
+        $max = 15;
+        echo "接口访问最大次数:".$max;echo '</br>';
+        if($count>$max){
+            echo "你在!你在!无中生有 暗度陈仓 凭空想象 凭空捏造";
+            die;
+        }
+        Redis::incr($key);
+    }
+
+    public function api3()
+    {
+        $ua = $_SERVER['HTTP_USER_AGENT'];
+        $u = md5($ua);
+        $u = substr($u,5,5);
+        echo "U: ".$u;echo '</br>';
+
+        $uri = $_SERVER['REQUEST_URI'];
+        echo "uri:" . $uri;echo '</br>';
+
+        $md5_uri = substr(md5($uri),0,8);
+        echo $md5_uri;
+
+        // $key = $u . ":" . $md5_uri . ":count";
+        $key = 'count:uri:'.$u.':'.$md5_uri;
+        echo "Redis Key:".$key;echo '</br>';
+
+        echo '<hr>';
+        $count = Redis::get($key);
+        echo "当前接口计数:".$count;echo '</br>';
+        $max = 15;
+        echo "接口访问最大次数:".$max;echo '</br>';
+        if($count>$max){
+            echo "你在!你在!无中生有 暗度陈仓 凭空想象 凭空捏造";
+            die;
+        }
+        Redis::incr($key);
+    }
+
 }
