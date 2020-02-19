@@ -21,7 +21,7 @@ Route::get('/phpinfo',function(){
 });
 
 // 测试
-Route::prefix('/test/')->group(function(){
+Route::prefix('/test/')->middleware('api.filter')->group(function(){
     Route::get('redis','TestController@testRedis');
     Route::get('test1','TestController@test1');
     Route::get('test2','TestController@test2');
