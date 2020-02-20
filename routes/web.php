@@ -20,8 +20,9 @@ Route::get('/phpinfo',function(){
     phpinfo();
 });
 
+// ->middleware('api.filter')
 // 测试
-Route::prefix('/test/')->middleware('api.filter')->group(function(){
+Route::prefix('/test/')->group(function(){
     Route::get('redis','TestController@testRedis');
     Route::get('test1','TestController@test1');
     Route::get('test2','TestController@test2');
@@ -45,11 +46,14 @@ Route::prefix('/test/')->middleware('api.filter')->group(function(){
     Route::get('redis/count1','TestController@count1');  //
     Route::get('api2','TestController@api2');  //
     Route::get('api3','TestController@api3');  //
+    Route::get('md5test','TestController@md5Test');  //
+    Route::get('verifySign','TestController@verifySign');  //
 });
 
 Route::prefix('/api/')->group(function(){
     Route::get('user/info','Api\UserController@info');
     Route::post('user/reg','Api\UserController@reg');  //用户注册
+    Route::get('weather','Api\UserController@weather');  //用户注册
 });
 
 

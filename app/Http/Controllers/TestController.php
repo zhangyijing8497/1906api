@@ -301,4 +301,40 @@ class TestController extends Controller
         Redis::incr($key);
     }
 
+    public function md5Test()
+    {
+        $key = "1906api";  //发送方 与 接收方 使用同一个 key
+        
+        $str = $_GET['str'];
+        echo "签名前的数据:" .$str;echo '</br>';
+
+        // 计算签名
+        $sign = md5($str.$key);
+        echo "计算的签名:" . $sign;
+
+        // 发送数据(原始数据+签名)
+    }
+
+    /**
+     * 接收数据 验证签名
+     */
+    public function verifySign()
+    {
+        $key = "1906api";
+
+        $data = $_GET['data'];  //接收到的数据
+        $sign = $_GET['sign'];  //接受到了签名
+
+        //验签
+        $sign2 = md5($data.$key);
+        echo "接收端计算的签名:".$sign2;echo '</br>';
+
+        // 与接收到的签名对比
+        if($sign2 == $sign){
+            echo "验签通过,数据完整";
+        }else{
+            echo "验签失败,数据损坏";
+        }
+    }
+
 }
