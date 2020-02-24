@@ -48,6 +48,10 @@ Route::prefix('/test/')->group(function(){
     Route::get('api3','TestController@api3');  //
     Route::get('md5test','TestController@md5Test');  //
     Route::get('verifySign','TestController@verifySign');  //
+    Route::get('luck','TestController@luck');  //
+    Route::get('decrypt','TestController@decrypt');  //
+    Route::get('decrypt1','TestController@decrypt1');  //
+    Route::get('decrypt2','TestController@decrypt2');  //
 });
 
 Route::prefix('/api/')->group(function(){

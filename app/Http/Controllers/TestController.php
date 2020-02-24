@@ -337,4 +337,94 @@ class TestController extends Controller
         }
     }
 
+    public function luck()
+    {
+        echo "请输入您的出生日期,程序为您计算今天的幸运色:";
+        if(empty($_GET['birth'])){
+            echo "请输入您的出生日期";die;
+        }
+        $birth = $_GET['birth'];
+        $res = ['红色','黑色','粉色','白色','绿色'];
+        $rand = mt_rand(0,4);
+
+        echo $res[$rand];
+    }
+
+    public function decrypt()
+    {
+        // echo "111";die;
+        $data = $_GET['str'];
+        // $data = "Mpoh!ujnf!op!tff";
+        echo "密文:".$data;echo '</br>';
+
+        $length = strlen($data);
+
+        $str = '';
+        for($i=0;$i<$length;$i++){
+            echo $data[$i] . "->" . ord($data[$i]);
+            echo '</br>';
+            $code = ord($data[$i])-1;
+            echo "解密:" . "->" .$data[$i] . "->" .chr($code);
+            echo '</br>';
+            $str.=chr($code);
+        }
+        echo '<hr>';
+        echo $str;
+    }
+
+    public function decrypt1()
+    {
+        $key = '1906api';
+        $method = 'aes-128-cbc'; //加算法
+        $iv = 'jcdqwertyuiazcjj';
+
+
+        echo "接收到的数据:";echo '</br>';
+        echo '<pre>';print_r($_GET);echo '</pre>';
+        $data = $_GET['data'];
+
+        // base64解码
+        $enc_str = base64_decode($data);
+
+        // 解密
+        $dec_str = openssl_decrypt($enc_str,$method,$key,OPENSSL_RAW_DATA,$iv);
+        echo "解密后的数据:";echo '</br>';
+        var_dump($dec_str);
+    }
+
+    public function decrypt2()
+    {
+        $key = '1906api';
+        $data = $_GET['data'];  //接收到的数据
+        $sign = $_GET['sign'];  //接受到的签名
+
+        $method = 'aes-128-cbc'; //加算法
+        $iv = 'poiuytrewqasdfgh';
+
+
+        echo "接收到的数据:";echo '</br>';
+        echo '<pre>';print_r($_GET);echo '</pre>';
+
+        // base64解码
+        $enc_str = base64_decode($data);
+
+        // 解密
+        $dec_str = openssl_decrypt($enc_str,$method,$key,OPENSSL_RAW_DATA,$iv);
+        echo "解密后的数据:";echo '</br>';
+        var_dump($dec_str);echo '<hr>';
+
+        //验签
+        $sign2 = md5($dec_str.$key);
+        echo "接收端计算的签名:".$sign2;echo '</br>';
+
+        // 与接收到的签名对比
+        if($sign2 == $sign){
+            echo "验签通过,数据完整";echo '</br>';
+        }else{
+            echo "验签失败,数据损坏";echo '</br>';
+        }
+
+        
+    }
+
 }
