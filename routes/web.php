@@ -52,6 +52,9 @@ Route::prefix('/test/')->group(function(){
     Route::get('decrypt','TestController@decrypt');  //
     Route::get('decrypt1','TestController@decrypt1');  //
     Route::get('decrypt2','TestController@decrypt2');  //
+
+    // 非对称加密
+    Route::get('rsa1','TestController@rsa1');  //
 });
 
 Route::prefix('/api/')->group(function(){

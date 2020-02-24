@@ -422,9 +422,24 @@ class TestController extends Controller
             echo "验签通过,数据完整";echo '</br>';
         }else{
             echo "验签失败,数据损坏";echo '</br>';
-        }
+        } 
+    }
 
-        
+
+    /**
+     * 非对称加密 使用私钥解密
+     */
+    public function  rsa1()
+    {
+        echo '<hr>';
+        echo "API";
+        echo '<pre>';print_r($_GET);echo '</pre>';
+
+        // 使用base64_decode 
+        $base64_data = base64_decode($_GET['data']);
+        $key = file_get_contents(storage_path('keys/priv_a.key'));
+        openssl_private_decrypt($base64_data,$decrypted,$key);
+        var_dump($decrypted);
     }
 
 }
