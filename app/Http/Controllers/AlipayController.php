@@ -11,7 +11,6 @@ class AlipayController extends Controller
     {
         $url = "https://openapi.alipaydev.com/gateway.do";  //沙箱测试环境
 
-        $client = new Client;
 
         // 请求参数
         $common_param = [
