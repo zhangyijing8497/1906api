@@ -69,3 +69,5 @@ Route::prefix('/api/')->group(function(){
 Route::prefix('/goods/')->group(function(){
     Route::get('details','GoodsController@details');
 });
+
+Route::get('alipay/test1','AlipayController@test1');
