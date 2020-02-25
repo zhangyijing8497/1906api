@@ -431,15 +431,43 @@ class TestController extends Controller
      */
     public function  rsa1()
     {
-        echo '<hr>';
-        echo "API";
-        echo '<pre>';print_r($_GET);echo '</pre>';
+        // echo '<hr>';
+        // echo "API";
+        // echo '<pre>';print_r($_GET);echo '</pre>';
 
         // 使用base64_decode 
         $base64_data = base64_decode($_GET['data']);
         $key = file_get_contents(storage_path('keys/priv_a.key'));
-        openssl_private_decrypt($base64_data,$decrypted,$key);
-        var_dump($decrypted);
+        openssl_private_decrypt($base64_data,$dec_str,$key);
+        // echo "解密数据:";echo '</br>';
+
+        // 响应数据
+        $str = "that's all right"; 
+        $key = file_get_contents(storage_path('keys/pub_b.key'));
+        openssl_public_encrypt($str,$enc_str,$key);
+        // echo "响应的加密数据:".$enc_str;die;
+
+        $data = [
+            'error' => 0,
+            'msg'   => 'ok',
+            'data'  => base64_encode($enc_str)
+        ];
+        return $data;
+    }
+
+    /**
+     * 验签
+     */
+    public function verify1()
+    {
+        echo '<hr>';
+        // echo '<pre>';print_r($_GET);echo '</pre>';
+        $data = $_GET['data'];
+        $sign = $_GET['sign'];
+        $b64_sign_str = base64_decode($sign);
+        $priv_key_id = openssl_pkey_get_public("file://".storage_path('keys/pub_b.key'));
+        $ok = openssl_verify($data,$b64_sign_str,$priv_key_id,OPENSSL_ALGO_SHA256);
+        return $ok;
     }
 
 }

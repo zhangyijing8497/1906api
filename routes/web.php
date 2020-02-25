@@ -55,6 +55,8 @@ Route::prefix('/test/')->group(function(){
 
     // 非对称加密
     Route::get('rsa1','TestController@rsa1');  //
+    // 验签
+    Route::get('verify1','TestController@verify1');  //
 });
 
 Route::prefix('/api/')->group(function(){
